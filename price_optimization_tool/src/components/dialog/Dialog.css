@@ -1,0 +1,29 @@
+.custom-dialog {
+    background-color: black !important;
+    color: white !important;
+}
+
+.p-dialog-draggable .p-dialog-header{
+    padding: 15px;
+    border-bottom: 1px solid var(--bg-color);
+}
+
+.p-dialog-title{
+    color: var(--text-color-primary);
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.p-icon.p-dialog-header-close-icon{
+    color: var(--text-color-primary);
+    font-weight: bold;
+    height: 20px;
+    width: 20px;
+}
+
+.dialog-footer{
+    display: flex;
+    gap: 15px;
+    padding: 10px;
+    justify-content: flex-end;
+}

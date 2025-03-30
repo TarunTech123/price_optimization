@@ -1,0 +1,9 @@
+/* Dropdown */
+.category-dropdown {
+    background: #333;
+    color: white;
+    border: 1px solid var(--text-color-primary);
+    padding: 5px;
+    border-radius: 5px;
+    min-width: 200px;
+}

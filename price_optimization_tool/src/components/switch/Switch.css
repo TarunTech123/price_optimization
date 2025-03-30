@@ -1,0 +1,41 @@
+/* Toggle Switch */
+.toggle-switch {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.toggle-switch input {
+    display: none;
+}
+
+.toggle-switch .slider {
+    width: 30px;
+    height: 15px;
+    background: #555;
+    border-radius: 15px;
+    position: relative;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.toggle-switch .slider:before {
+    content: "";
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: white;
+    border-radius: 50%;
+    top: 50%;
+    left: 2px;
+    transform: translateY(-50%);
+    transition: 0.3s;
+}
+
+.toggle-switch input:checked + .slider {
+    background: #18c3a1;
+}
+
+.toggle-switch input:checked + .slider:before {
+    left: 16px;
+}

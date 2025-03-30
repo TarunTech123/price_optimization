@@ -1,0 +1,30 @@
+.action-btn {
+    background: var(--text-color-primary);
+    color: var(--text-color-black);
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.action-btn_secondary{
+    background: #333;
+    color: var(--text-color-white);
+    border: 1px solid var(--text-color-primary);
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.action-btn-back{
+    background: none;
+    border: none;
+    color: var(--text-color-white);
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.action-btn-back i{
+    color: var(--text-color-primary);
+}

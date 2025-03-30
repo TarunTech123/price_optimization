@@ -1,0 +1,93 @@
+/* Table container */
+.p-datatable {
+    background: var(--bg-color);
+    border-radius: 8px;
+    padding: 10px;
+    flex-grow: 1;
+    height: 100%;
+}
+
+.p-datatable-wrapper{
+    flex-grow: 1;
+    height: 100%;
+}
+
+/* Table header */
+.p-datatable .p-datatable-thead > tr > th {
+    background: var(--text-color-black);
+    color: #ffffff;
+    font-weight: bold;
+    text-align: left;
+    padding: 12px;
+    border-bottom: 1px solid #333;
+}
+
+/* Table body */
+.p-datatable .p-datatable-tbody > tr {
+    background: var(--text-color-white);
+    color: var(--text-color-black);
+    transition: background 0.3s;
+}
+
+.p-datatable .p-datatable-tbody > tr:nth-child(even) {
+    background: rgb(240, 238, 238);
+}
+
+.p-datatable .p-datatable-tbody > tr:hover {
+    background: #404040;
+    color: var(--text-color-white);
+}
+
+/* Table cells */
+.p-datatable .p-datatable-tbody > tr > td {
+    padding: 12px;
+    text-align: left;
+    border-right: 1px solid black;
+}
+
+/* Selection checkbox */
+.p-checkbox .p-checkbox-box {
+    border: 2px solid #ffffff;
+    background: transparent;
+}
+
+ .p-checkbox.p-highlight .p-checkbox-input{
+    accent-color: var(--text-color-primary);
+}
+
+.p-checkbox-icon{
+    color: white;
+}
+
+/* Action icons */
+.action-icons {
+    display: flex;
+    gap: 10px;
+}
+
+.action-icons i {
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #ffffff;
+    transition: color 0.3s;
+}
+
+.action-icons i:hover {
+    color: #00ff99;
+}
+
+/* Buttons */
+.p-button {
+    background: #00ff99;
+    border: none;
+    color: #1e1e1e;
+    font-weight: bold;
+}
+
+.p-button:hover {
+    background: #00cc77;
+}
+
+.p-checkbox-box{
+    display: none;
+}

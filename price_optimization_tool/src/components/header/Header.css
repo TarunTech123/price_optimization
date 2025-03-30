@@ -1,0 +1,54 @@
+/* Header Styling */
+.header {
+    background-color: var(--bg-color); /* Dark Background */
+    color: var(--text-color-white);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    height: 50px;
+}
+
+/* Title Styling */
+.app-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--text-color-primary); /* Green color */
+}
+
+/* User Profile Section */
+.user-profile {
+    display: flex;
+    align-items: center;
+}
+
+/* Welcome Text */
+.welcome-text {
+    font-size: 14px;
+    color: #cccccc; /* Light grey */
+    margin-right: 10px;
+}
+
+/* User Name */
+.user-name {
+    color: var(--text-color-primary); /* Green */
+    font-weight: bold;
+}
+
+/* Avatar Styling */
+.user-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: var(--text-color-white); /* Placeholder color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-avatar i {
+    text-align: center;
+    font-size: medium;
+    color: var(--text-color-black);
+}
