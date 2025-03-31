@@ -1,20 +1,20 @@
 import React from 'react'
 
 import './Dropdown.css';
+import { CategoryType } from '../../utils/types/Types';
 
 type DropdownProps = {
     placeholder: string;
-    value: string | number;
-    options: string[];
-    onChange: () => void
+    options: CategoryType[] | null | undefined;
+    onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void
 }
-const Dropdown: React.FC<DropdownProps> = ({ placeholder, value, options, onChange }) => {
+const Dropdown: React.FC<DropdownProps> = ({ placeholder, options, onChange }) => {
 
     return (
-        <select className="category-dropdown" value={value} onChange={onChange}>
+        <select className="category-dropdown" onChange={(e) => onChange(e)}>
             <option value='' selected={false}>{placeholder}</option>
-            {options.map((item: string, index: number) => {
-                return <option value={item} key={index}>{item}</option>
+            {options?.map((item: CategoryType, index: number) => {
+                return <option value={item?.id} key={index}>{item?.name}</option>
             })}
         </select>
     )

@@ -1,28 +1,51 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 
 import './ProductManagement.css';
-import { Header, Navbar, Table } from '../../components';
-import { ProductService } from '../../components/table/ProductService';
-import { Product, tableConfigType } from '../../utils/types/Types';
+import { Header, Navbar, Table, ViewData } from '../../components';
+import { ContextType, ProductDetails, tableConfigType } from '../../utils/types/Types';
+import { getProductsAPI } from '../../services/Price_Optimization_Service';
+import { ProviderContext } from '../../context/ContextProvider';
+import { DeleteProduct } from '../../services/Product_Management_Service';
+import { Alert } from '../../utils/alert';
 
 const ProductManagement: React.FC = () => {
 
-    const [products, setProducts] = useState<Product[]>([]);
+    const { setProducts, products, setViewProduct, setIsViewDialogVisible, setIsAddDialogVisible, setProductsCopy } = useContext<ContextType>(ProviderContext);
+
     useEffect(() => {
-        ProductService.getProductsMini().then((data) => setProducts(data));
-    }, []);
+        getProducts();
+    }, []);//eslint-disable-line react-hooks/exhaustive-deps
+
+    const getProducts = async () => {
+        await getProductsAPI('/products').then((res) => {
+            setProducts(res);
+            setProductsCopy(res);
+        }).catch((err) => {
+            console.log('products get err', err)
+        })
+    }
+
+    const handleDelete = async (data: ProductDetails) => {
+        await DeleteProduct('/products', data?.id).then((res) => {
+            console.log('delete Response', res);
+            Alert('Sucess', 'Deleted Sucessfully', 'success')
+        }).catch((err) => {
+            console.log('Failed to delete product', err)
+        })
+    }
 
     const tableConfig: tableConfigType = {
         data: products,
-        columns: [{ name: 'id', header: 'id' }, { name: 'code', header: 'code' }, { name: 'name', header: 'name' },
-        { name: 'description', header: 'description' }, { name: 'image', header: 'image' }, { name: 'price', header: 'price' },
-        { name: 'category', header: 'category' }, { name: 'quantity', header: 'quantity' }, { name: 'actions', header: 'Action' }
+        columns: [{ name: 'name', header: 'name' }, { name: 'category_name', header: 'Product Category' }, { name: 'cost_price', header: 'Cost Price' },
+        { name: 'selling_price', header: 'Selling Price' }, { name: 'description', header: 'description' },
+        { name: 'stock_available', header: 'Available Stock' }, { name: 'units_sold', header: 'Units Sold' }, { name: 'actions', header: 'Action' }
         ],
         actions: [
-            { title: 'View', icon: 'bi bi-eye-fill', onClick: () => { } },
-            { title: 'Edit', icon: 'bi bi-pencil-fill', onClick: () => { } },
-            { title: 'Delete', icon: 'bi bi-trash-fill', onClick: () => { } }
-        ]
+            { title: 'View', icon: 'bi bi-eye-fill', onClick: (data: ProductDetails) => { setViewProduct(data); setIsViewDialogVisible(true) } },
+            { title: 'Edit', icon: 'bi bi-pencil-fill', onClick: (data: ProductDetails) => { setViewProduct(data); setIsAddDialogVisible(true) } },
+            { title: 'Delete', icon: 'bi bi-trash-fill', onClick: (data: ProductDetails) => { handleDelete(data) } }
+        ],
+        isSelectable: true
     }
 
     return (
@@ -30,6 +53,7 @@ const ProductManagement: React.FC = () => {
             <Header title='Price Optimization Tool' />
             <Navbar />
             <Table {...tableConfig} />
+            <ViewData />{/* Data view on eye icon click on table */}
         </div>
     )
 }

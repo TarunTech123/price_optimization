@@ -1,6 +1,5 @@
 import React from 'react'
-import { BrowserRouter } from 'react-router-dom';
-import { Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Home, Login, PriceOptimization, ProductManagement } from '../pages';
 
 const AppRoutes: React.FC = () => {

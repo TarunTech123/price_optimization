@@ -1,12 +1,30 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
 import './Navbar.css'
-import { ButtonField, CustomDialog, Dropdown, InputField, Seperator, Switch, Title } from '../index';
+import { AddProduct, ButtonField, Dropdown, Forecast, InputField, Seperator, Switch, Title } from '../index';
+import { ContextType } from '../../utils/types/Types';
+import { ProviderContext } from '../../context/ContextProvider';
+import { GetCategories } from '../../services/Product_Management_Service';
 
 const Navbar: React.FC = () => {
 
     const navigate = useNavigate();
+    const { setIsAddDialogVisible, setIsForecastDialogVisible, handleSearch, categories, setCategories, handleFilterProductsByCategory } = useContext<ContextType>(ProviderContext);
+    const [searchText, setSearchText] = useState<string>('');
+
+    useEffect(() => {
+        getCategoryData();
+    }, []);//eslint-disable-line react-hooks/exhaustive-deps
+
+    const getCategoryData = async () => {
+        await GetCategories('/categories').then((res) => {
+            console.log(res);
+            setCategories(res);
+        }).catch((err) => {
+            console.log('products get err', err)
+        })
+    }
 
     return (
         <div className="navbar">
@@ -15,7 +33,7 @@ const Navbar: React.FC = () => {
             {/* Seperator */}
             <Seperator />
             {/* Page Title */}
-            <Title title='Create and Manage Product' />
+            <Title title={window.location.pathname !== '/price_optimization' ? 'Create and Manage Product' : 'Pricing Optimization'} />
 
             {/* Toggle Switch */}
             <Switch />
@@ -25,8 +43,8 @@ const Navbar: React.FC = () => {
             <InputField
                 icon='bi bi-search'
                 placeholder='Search'
-                value={''}
-                onChange={() => { }}
+                value={searchText}
+                onChange={(e) => { setSearchText(e.target.value); handleSearch('/products/search', e.target.value) }}
                 isPrimary={true}
             />
 
@@ -34,9 +52,8 @@ const Navbar: React.FC = () => {
             <label className="category-label">Category:</label>
             <Dropdown
                 placeholder='Select'
-                value={''}
-                onChange={() => { }}
-                options={['Stationary']}
+                onChange={(e) => { handleFilterProductsByCategory('/products', Number(e.target.value)) }}
+                options={categories}
             />
 
             {/* Filter Button */}
@@ -44,54 +61,13 @@ const Navbar: React.FC = () => {
             {/* Seperator */}
             <Seperator />
             {/* Action Buttons */}
-            <ButtonField label='Add New Products' icon='bi bi-plus-circle-fill' isPrimary={true} onClick={() => { }} />
-            <ButtonField label='Demand Forecast' icon='bi bi-file-bar-graph-fill' isPrimary={true} onClick={() => { }} />
-            <CustomDialog
-                title='Add New Product'
-                visible={true}
-                onHide={() => { }}
-                onSubmit={() => { }}
-            >
-                <div style={{ padding: "15px" }}>
-                    <div className="mb-3">
-                        <label>Product Name:</label>
-                        <InputField placeholder="Search" value={""} onChange={() => { }} />
-                    </div>
+            {window.location.pathname === '/price_optimization' ? null : <><ButtonField label='Add New Products' icon='bi bi-plus-circle-fill' isPrimary={true} onClick={() => setIsAddDialogVisible(true)} />
+                <ButtonField label='Demand Forecast' icon='bi bi-file-bar-graph-fill' isPrimary={true} onClick={() => { setIsForecastDialogVisible(true) }} /></>}
 
-                    <div className="mb-3">
-                        <label>Product Category:</label>
-                        <InputField placeholder="Search" value={""} onChange={() => { }} />
-                    </div>
-
-                    <div className="row">
-                        <div className="col-6 mb-3">
-                            <label>Cost Price:</label>
-                            <InputField placeholder="Search" value={""} onChange={() => { }} />
-                        </div>
-                        <div className="col-6 mb-3">
-                            <label>Selling Price:</label>
-                            <InputField placeholder="Search" value={""} onChange={() => { }} />
-                        </div>
-                    </div>
-
-                    <div className="mb-3">
-                        <label>Description:</label>
-                        <textarea value="" onChange={() => { }} placeholder='Description' className='search-container w-100' />
-                    </div>
-
-                    <div className="row">
-                        <div className="col-6 mb-3">
-                            <label>Available Stock:</label>
-                            <InputField placeholder="Search" value={""} onChange={() => { }} />
-                        </div>
-                        <div className="col-6 mb-3">
-                            <label>Units Sold:</label>
-                            <InputField placeholder="Search" value={""} onChange={() => { }} />
-                        </div>
-                    </div>
-                </div>
-
-            </CustomDialog>
+            {/* Add Product Dialog */}
+            <AddProduct title='Add New Product' />
+            {/* Forecast */}
+            <Forecast />
         </div>
     )
 }

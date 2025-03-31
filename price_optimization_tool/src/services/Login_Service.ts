@@ -1,10 +1,13 @@
-import { LoginAPI } from "../utils/types/Types"
+import { AxiosResponse } from "axios"
+
+import { LoginAPI, LoginSignupResponse, SignupRequest } from "../utils/types/Types"
 import { HttpService } from "./http-repository-service"
 
-export const handleLoginAPI = (url: string,data:LoginAPI) => {
-    HttpService.post(url,data)
-}
-
-export const handleSignup = (url: string,data:LoginAPI) => {
-    HttpService.post(url,data)
-}
+export const handleLoginSignupAPI = async (url: string, data: LoginAPI| SignupRequest) => {
+    try {
+        const res: AxiosResponse<LoginSignupResponse> = await HttpService.post(url, data);
+        return res?.data;
+    } catch (err) {
+        console.error("Login error", err);
+    }
+};

@@ -16,7 +16,7 @@ const CustomDialog: React.FC<CustomDialogProps> = ({ visible, onHide, title, chi
     const footer = (
         <div className="dialog-footer">
             <ButtonField label="Cancel" onClick={onHide} />
-            <ButtonField label="Add" onClick={onSubmit} isPrimary={true}/>
+            <ButtonField label="Add" onClick={onSubmit} isPrimary={true} />
         </div>
     );
 
@@ -26,7 +26,7 @@ const CustomDialog: React.FC<CustomDialogProps> = ({ visible, onHide, title, chi
             visible={visible}
             style={{ minWidth: "35vw", maxHeight: "80vh", minHeight: '40vh' }}
             onHide={onHide}
-            footer={footer}
+            footer={title === 'Add New Product' || title === 'Edit Product Details' ? footer : null}
             className="custom-dialog"
             maskStyle={{ backgroundColor: "rgba(108, 104, 104, 0.7)" }} // Slightly gray overlay
         >

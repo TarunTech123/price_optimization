@@ -1,10 +1,11 @@
 /* Search Box */
 .search-container {
-    background: #333;
+    background: var(--bg-color);
     padding: 5px 10px;
     border-radius: 5px;
     min-width: 200px;
     border: var(--color);
+    color: var(--text-color-white);
 }
 
 .search-input {
@@ -12,5 +13,5 @@
     border: none;
     color: white;
     outline: none;
-    width: 120px;
+    width: var(--text-color-white);
 }
